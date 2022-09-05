@@ -1,0 +1,24 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+  <title>Getting Started: Serving Web Content</title>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+</head>
+<body>
+<p th:text="'Привет и добро пожаловать в ' + ${name}" />
+
+<form method="post" action="/res">
+  <input id="variable" name="variable" type="text">
+  <select name="variant" id="variant" type="text">
+    <option selected="selected">Выберите вариант</option>
+    <option value="1" name="q" id="q">+</option>
+    <option value="2" name="a" id="a">-</option>
+    <option value="3" name="z" id="z">*</option>
+    <option value="4" name="w" id="w">/</option>
+  </select>
+  <input id="variable2" name="variable2" type="text">
+  <input type="submit" th:value="отправить">
+
+</form>
+</body>
+</html>
