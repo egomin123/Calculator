@@ -24,19 +24,24 @@ public class MainController {
 
         int c = 23;
         if (F.contains("1")) {
-            c = a + b;
-        }
+            try {
+                c = a + b;}
+            catch(Exception E){
+                c = 0;}}
         if (F.contains("2")) {
-            c = a - b;
-        }
+            try {
+            c = a - b;}
+            catch(Exception E){
+            c = 0;}}
         if (F.contains("3")){
-            c = a * b;
-        }
+            try {
+            c = a * b;}
+            catch(Exception E){
+        c = 0;}}
         if (F.contains("4")) {
-            c = a / b;
-        }
-
+            try {
+            c = a / b;}
+                catch(Exception E){
+                c = 0;}}
         model.addAttribute("answer", c);
-        return "Answer";
-    }
-}
+        return "Answer";}}
