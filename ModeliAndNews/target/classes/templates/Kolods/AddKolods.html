@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-gH2yIJqKdNHPEq0n4Mqa/HGKIhSkIHeL5AyhkYV8i59U5AR6csBvApHHNl/vI1Bx" crossorigin="anonymous">
+  <link rel="stylesheet" href="/style.css">
+</head>
+<body >
+<div th:insert="Fragments/Header :: defaultHeader"> </div>
+<form action="/Kolods/add" method="post">
+
+  <p>Название:</p>
+  <input type="text" id="nazvanie" name="nazvanie" placeholder="Название">
+  <p>Описание:</p>
+  <input type="text" id="opisanie" name="opisanie" placeholder="Описание">
+  <p>Фирма:</p>
+  <input type="text" id="firma" name="firma" placeholder="Фирма">
+  <p>Количество колод на складе:</p>
+  <input type="number" id="kolvo" name="kolvo" placeholder="Количество на складе">
+  <p>Количество карт в колоде:</p>
+  <input type="number" id="kart" name="kart" placeholder="Количество карт"> <br>
+
+  <input type="submit" value="Добавить колоду" class="btn btn-seccsess"/>
+  <a href="/Kolods/"> Назад</a>
+
+
+  </div>
+</form>
+
+</body>
+</html>
