@@ -19,11 +19,12 @@
     <input type="submit" value="Найти блюдо ">
 </form>
 
-<
+
 <div th:each="el : ${menu}">
   <h2 th:text="${el.getbludo()}"> </h2>
   <h2 th:text="${el.getopisanie()}"> </h2>
   <p th:text="${el.getcena()}"> </p>
+    <a th:href="'/Menu/' + ${el.id}">Информация о блюде</a>
 </div>
 
 <a href="add/" class="btn btn-primary" >Добавить в меню</a> <br>

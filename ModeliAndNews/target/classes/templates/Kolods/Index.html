@@ -21,6 +21,7 @@
   <h2 th:text="${el.getnazvanie()}"> </h2>
   <h2 th:text="${el.getfirma()}"> </h2>
   <p th:text="${el.getkolvo()}"> </p>
+  <a th:href="'/Kolods/' + ${el.id}">Информация о колоде</a>
 </div>
 <a href="add/" class="btn btn-primary" >Добавить колоду</a> <br>
 <a href="/News/" class="btn btn-primary" >перейти к новостям</a>

@@ -9,12 +9,11 @@ import Practika2.ModeliAndNews.Repository.NewsRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 @Controller
 @RequestMapping("/Kolods")
@@ -75,4 +74,78 @@ public class KolodsController {
         model.addAttribute("kolods", menuList);
         return "Kolods/Index";
     }
+
+
+    @GetMapping("/{id}")
+    public String read(
+            @PathVariable("id") Long id,
+            Model model)
+    {
+        Optional<Kolods> kolods = kolodsRepository.findById(id);
+        ArrayList<Kolods> kolodsArrayList =  new ArrayList<>();
+        kolods.ifPresent(kolodsArrayList::add);
+        model.addAttribute("kolods", kolodsArrayList);
+        return "Kolods/Info-Kolods";
+    }
+
+    @GetMapping("/del/{id}")
+    public String del(
+            @PathVariable("id") Long id
+    )
+    {
+        Kolods kolods = kolodsRepository.findById(id).orElseThrow();
+        kolodsRepository.delete(kolods);
+
+        //newsRepository.deleteById(id);
+        return "redirect:/Kolods/";
+    }
+
+
+    @GetMapping("/edit/{id}")
+    public String edit(
+            @PathVariable("id") Long id,
+            Model model
+    )
+    {
+        if (!kolodsRepository.existsById(id) )
+        {
+            return "redirect:/Kolods/";
+        }
+        Optional<Kolods> kolods = kolodsRepository.findById(id);
+        ArrayList<Kolods> kolodsArrayList =  new ArrayList<>();
+        kolods.ifPresent(kolodsArrayList::add);
+        model.addAttribute("Kolods", kolodsArrayList);
+        return "Kolods/Edit-Kolods";
+    }
+
+
+
+    @PostMapping("/edit/{id}")
+    public String editKolods(
+            @PathVariable("id") Long id,
+            @RequestParam("nazvanie") String nazvanie,
+            @RequestParam("opisanie") String opisanie,
+            @RequestParam("firma") String firma,
+            @RequestParam("kolvo") Integer kolvo,
+            @RequestParam("kart") Integer kart,
+            Model model
+    )
+    {
+        if (!kolodsRepository.existsById(id) )
+        {
+            return "redirect:/Kolods/";
+        }
+        Kolods kolods = kolodsRepository.findById(id).orElseThrow();
+
+
+        kolods.setnazvanie(nazvanie);
+        kolods.setopisanie(opisanie);
+        kolods.setfirma(firma);
+        kolods.setkolvo(kolvo);
+        kolods.setkart(kart);
+
+        kolodsRepository.save(kolods);
+        return "redirect:/Kolods/";
+    }
+
 }

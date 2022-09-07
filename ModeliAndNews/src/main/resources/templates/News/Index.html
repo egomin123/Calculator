@@ -15,7 +15,7 @@
 
 <form action="/News/Search">
     <input type="text" name="title">
-    <input type="submit" value="Найти новость">
+    <input type="submit" value="Найти новость по точному названию">
 </form>
 <form action="/News/Searchs">
     <input type="text" name="title  ">
@@ -26,6 +26,7 @@
     <h2 th:text="${el.title}"> </h2>
     <h2 th:text="${el.author}"> </h2>
     <p th:text="${el.views}"> </p>
+    <a th:href="'/News/' + ${el.id}">прочитать статью</a>
 </div>
 
 
