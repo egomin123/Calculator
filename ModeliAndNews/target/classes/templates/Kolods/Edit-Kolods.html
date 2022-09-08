@@ -8,10 +8,7 @@
 <body >
 <div th:insert="Fragments/Header :: defaultHeader"> </div>
 <div th:each="el : ${Kolods}" ></div>
-
-
 <form th:action="'/Kolods/edit/' + ${id}", method="post">
-
   <p>Название:</p>
   <input type="text" th:value="${nazvanie}" id="nazvanie" name="nazvanie" placeholder="Название">
   <p>Описание:</p>
@@ -19,16 +16,12 @@
   <p>Фирма:</p>
   <input type="text" th:value="${firma}" id="firma" name="firma" placeholder="Фирма">
   <p>Количество колод на складе:</p>
-  <input type="number" th:value="${kolvo}" id="kolvo" name="kolvo" placeholder="Количество на складе">
+  <input type="number" th:value="${kolvo}" id="kolvo" name="kolvo" placeholder="Количество колод">
   <p>Количество карт в колоде:</p>
-  <input type="number" th:value="${kart}" id="kart" name="kart" placeholder="Количество карт"> <br>
-
+  <input type="number" th:value="${kart}"  id="kart" name="Количество карт" > <br>
   <input type="submit" value="изменить колоду" class="btn btn-seccsess"/> <br>
   <a href="/Kolods/"> Назад</a>
-
-
   </div>
 </form>
-
 </body>
 </html>

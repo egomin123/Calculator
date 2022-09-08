@@ -8,10 +8,7 @@
 <body >
 <div th:insert="Fragments/Header :: defaultHeader"> </div>
 <div th:each="el : ${News}" ></div>
-
-
 <form th:action="'/News/edit/' + ${id}", method="post">
-
   <p>Заголовок:</p>
   <input type="text" th:value="${title}" id="title" name="title" placeholder="Заголовок">
   <p>Текст новости:</p>
@@ -25,10 +22,7 @@
 
   <input type="submit" value="изменить новость" class="btn btn-seccsess"/> <br>
   <a href="/News/"> Назад</a>
-
-
   </div>
 </form>
-
 </body>
 </html>

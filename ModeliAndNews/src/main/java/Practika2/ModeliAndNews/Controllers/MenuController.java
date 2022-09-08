@@ -116,6 +116,12 @@ public class MenuController {
         ArrayList<Menu> menuArrayList =  new ArrayList<>();
         menu.ifPresent(menuArrayList::add);
         model.addAttribute("Menu", menuArrayList);
+        model.addAttribute("bludo", menu.get().getbludo());
+        model.addAttribute("ingridient", menu.get().getingridient());
+        model.addAttribute("kkal", menu.get().getkkal());
+        model.addAttribute("opisanie", menu.get().getopisanie());
+        model.addAttribute("cena", menu.get().getcena());
+
         return "Menu/Edit-Menu";
     }
 
@@ -134,6 +140,10 @@ public class MenuController {
         if (!menuRepository.existsById(id) )
         {
             return "redirect:/Menu/";
+        }
+        if ( bludo.isEmpty() || opisanie.isEmpty() || ingridient.isEmpty() || cena.equals(null) || kkal.equals(null))
+        {
+            return "redirect:/Kolods/";
         }
         Menu menu = menuRepository.findById(id).orElseThrow();
 

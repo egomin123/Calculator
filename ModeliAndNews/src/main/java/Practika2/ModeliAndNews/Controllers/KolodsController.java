@@ -111,10 +111,17 @@ public class KolodsController {
         {
             return "redirect:/Kolods/";
         }
+
         Optional<Kolods> kolods = kolodsRepository.findById(id);
         ArrayList<Kolods> kolodsArrayList =  new ArrayList<>();
         kolods.ifPresent(kolodsArrayList::add);
         model.addAttribute("Kolods", kolodsArrayList);
+        model.addAttribute("nazvanie", kolods.get().getnazvanie());
+        model.addAttribute("kart", kolods.get().getkart());
+        model.addAttribute("kolvo", kolods.get().getkolvo());
+        model.addAttribute("opisanie", kolods.get().getopisanie());
+        model.addAttribute("firma", kolods.get().getfirma());
+
         return "Kolods/Edit-Kolods";
     }
 
@@ -132,6 +139,10 @@ public class KolodsController {
     )
     {
         if (!kolodsRepository.existsById(id) )
+        {
+            return "redirect:/Kolods/";
+        }
+        if ( nazvanie.isEmpty() || opisanie.isEmpty() || firma.isEmpty() || kolvo.equals(null) || kart.equals(null))
         {
             return "redirect:/Kolods/";
         }

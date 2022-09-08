@@ -113,6 +113,12 @@ public class NewsController {
         ArrayList<News> newsArrayList =  new ArrayList<>();
         news.ifPresent(newsArrayList::add);
         model.addAttribute("News", newsArrayList);
+        model.addAttribute("title", news.get().getTitle());
+        model.addAttribute("author", news.get().getAuthor());
+        model.addAttribute("body_text", news.get().getBody_text());
+        model.addAttribute("views", news.get().getViews());
+        model.addAttribute("likes", news.get().getLikes());
+
         return "News/Edit-News";
     }
 
@@ -131,6 +137,10 @@ public class NewsController {
         if (!newsRepository.existsById(id) )
         {
             return "redirect:/News/";
+        }
+        if ( title.isEmpty() || author.isEmpty() || body_text.isEmpty() || views.equals(null) || likes.equals(null))
+        {
+            return "redirect:/Kolods/";
         }
        News news = newsRepository.findById(id).orElseThrow();
 

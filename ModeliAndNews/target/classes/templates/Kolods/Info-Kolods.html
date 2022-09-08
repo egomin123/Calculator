@@ -11,22 +11,15 @@
 <div th:insert="Fragments/Header :: defaultHeader"> </div>
 
 
-
-
-
 <div th:each="el : ${kolods}">
     <h2 th:text="${el.getnazvanie()}"> </h2>
     <h2 th:text="${el.getfirma()}"> </h2>
     <h2 th:text="${el.getopisanie()}"> </h2>
     <p th:text="${el.getkolvo()}"> </p>
     <p th:text="${el.getkart}"> </p>
-
-
     <a th:href="'/Kolods/del/' + ${el.id}" class="btn btn-primary">Удалить</a> <br>
-
     <a th:href="'/Kolods/edit/' + ${el.id}" class="btn btn-primary">Изменить</a><br>
     <a href="/Kolods/">Назад к колодам</a>
 </div>
-
 </body>
 </html>
