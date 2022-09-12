@@ -4,6 +4,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.validation.constraints.*;
 
 @Entity
 public class Menu {
@@ -23,7 +24,27 @@ public class Menu {
 
         }
 
-        String bludo, opisanie, ingridient;
+    @NotEmpty(message = "Поле не может быть пустым")
+    @Size(message = "Строка не может быть больше 100 и меньше 3",min = 3,max=100)
+        String bludo;
+
+    @NotEmpty(message = "Поле не может быть пустым")
+    @Size(message = "Строка не может быть больше",min = 3,max=10000)
+        String opisanie;
+
+    @NotEmpty(message = "Впишите, пожалуйста, ингридиенты")
+        String ingridient;
+
+
+    @Min(message = "Количество не может быть отрицательным",value = 0)
+    @Max(message = "Количество не должно превышать 100000",value = 100000)
+    @NotNull(message = "Число не должно быть пустым")
+    Integer cena;
+
+    @Min(message = "Количество не может быть отрицательным",value = 0)
+    @Max(message = "Количество не должно превышать 100000",value = 100000)
+    @NotNull(message = "Число не должно быть пустым")
+    Integer kkal;
 
         public Long getId() {
             return id;
@@ -73,5 +94,5 @@ public class Menu {
             this.kkal = kkal;
         }
 
-        Integer cena, kkal;
+
 }

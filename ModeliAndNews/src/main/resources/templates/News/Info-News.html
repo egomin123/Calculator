@@ -16,7 +16,8 @@
   <input type="text" name="title  ">
   <input type="submit" value="Найти новость ">
 </form>
-<div th:each="el : ${news}">
+<div style="display: inline-grid">
+<div th:each="el : ${news}" class="Zapis">
   <h2 th:text="${el.title}"> </h2>
   <h2 th:text="${el.author}"> </h2>
   <h2 th:text="${el.body_text}"> </h2>
@@ -25,6 +26,7 @@
   <a th:href="'/News/del/' + ${el.id}" class="btn btn-primary">Удалить</a> <br>
   <a th:href="'/News/edit/' + ${el.id}" class="btn btn-primary">Изменить</a> <br>
   <a href="/News/" class="btn btn-primary">Назад к новостям</a>
+  </div>
 </div>
 </body>
 </html>

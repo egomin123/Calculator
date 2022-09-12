@@ -9,8 +9,10 @@ import Practika2.ModeliAndNews.Repository.NewsRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -35,21 +37,22 @@ public class KolodsController {
     @GetMapping("/add")
     public String addView(Model model)
     {
-
+        model.addAttribute("kolods", new Kolods());
         return "Kolods/AddKolods";
     }
 
+
+
     @PostMapping("/add")
     public String add(
-            @RequestParam("nazvanie") String nazvanie,
-            @RequestParam("opisanie") String opisanie,
-            @RequestParam("firma") String firma,
-            @RequestParam("kolvo") Integer kolvo,
-            @RequestParam("kart") Integer kart,
+            @ModelAttribute("kolods") @Valid Kolods newKolods,
+            BindingResult bindingResult,
             Model model)
     {
-        Kolods kolodsOne = new Kolods(nazvanie, opisanie, firma, kolvo, kart);
-        kolodsRepository.save(kolodsOne);
+        if(bindingResult.hasErrors())
+            return "Kolods/AddKolods";
+
+        kolodsRepository.save(newKolods);
         return "redirect:/Kolods/";
     }
 
@@ -115,6 +118,7 @@ public class KolodsController {
         Optional<Kolods> kolods = kolodsRepository.findById(id);
         ArrayList<Kolods> kolodsArrayList =  new ArrayList<>();
         kolods.ifPresent(kolodsArrayList::add);
+        model.addAttribute("kolods", kolodsArrayList.get(0));
         model.addAttribute("Kolods", kolodsArrayList);
         model.addAttribute("nazvanie", kolods.get().getnazvanie());
         model.addAttribute("kart", kolods.get().getkart());
@@ -130,32 +134,20 @@ public class KolodsController {
     @PostMapping("/edit/{id}")
     public String editKolods(
             @PathVariable("id") Long id,
-            @RequestParam("nazvanie") String nazvanie,
-            @RequestParam("opisanie") String opisanie,
-            @RequestParam("firma") String firma,
-            @RequestParam("kolvo") Integer kolvo,
-            @RequestParam("kart") Integer kart,
-            Model model
-    )
+
+            @ModelAttribute("kolods") @Valid Kolods newkolods,
+            BindingResult bindingResult,
+            Model model)
     {
         if (!kolodsRepository.existsById(id) )
         {
             return "redirect:/Kolods/";
         }
-        if ( nazvanie.isEmpty() || opisanie.isEmpty() || firma.isEmpty() || kolvo.equals(null) || kart.equals(null))
-        {
-            return "redirect:/Kolods/";
-        }
-        Kolods kolods = kolodsRepository.findById(id).orElseThrow();
-
-
-        kolods.setnazvanie(nazvanie);
-        kolods.setopisanie(opisanie);
-        kolods.setfirma(firma);
-        kolods.setkolvo(kolvo);
-        kolods.setkart(kart);
-
-        kolodsRepository.save(kolods);
+        if(bindingResult.hasErrors())
+            return "Kolods/Edit-Kolods";
+        newkolods.setId(id);
+        //  News news = newsRepository.findById(id).orElseThrow();
+        kolodsRepository.save(newkolods);
         return "redirect:/Kolods/";
     }
 

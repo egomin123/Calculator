@@ -10,10 +10,8 @@
 
 <div th:insert="Fragments/Header :: defaultHeader"> </div>
 
-
-
-
-<div th:each="el : ${menu}">
+<div style="display: inline-grid">
+  <div th:each="el : ${menu}" class="Zapis">
   <h2 th:text="${el.getbludo}"> </h2>
   <h2 th:text="${el.getopisanie}"> </h2>
   <h2 th:text="${el.getingridient}"> </h2>
@@ -25,6 +23,6 @@
   <a th:href="'/Menu/edit/' + ${el.id}" class="btn btn-primary">Изменить</a> <br>
   <a href="/Menu/" class="btn btn-primary">Назад к Меню</a>
 </div>
-
+</div>
 </body>
 </html>

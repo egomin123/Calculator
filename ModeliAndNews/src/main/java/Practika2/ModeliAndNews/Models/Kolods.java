@@ -5,6 +5,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.validation.constraints.*;
 
 @Entity
 public class Kolods {
@@ -25,7 +26,29 @@ public class Kolods {
 
     }
 
-    String nazvanie, opisanie, firma;
+    @NotEmpty(message = "Поле не может быть пустым")
+    @Size(message = "Строка не может быть больше 100 и меньше 3",min = 3,max=100)
+    String nazvanie;
+
+    @NotEmpty(message = "Поле не может быть пустым")
+    @Size(message = "Строка не может быть больше",min = 3,max=10000)
+    String opisanie;
+
+    @NotEmpty(message = "Впишите, пожалуйста, фирму")
+    String firma;
+
+
+    @Min(message = "Количество не может быть отрицательным",value = 0)
+    @Max(message = "Количество не должно превышать 100000",value = 100000)
+    @NotNull(message = "Число не должно быть пустым")
+    Integer kolvo;
+
+
+    @Min(message = "Количество не может быть отрицательным",value = 0)
+    @Max(message = "Количество не должно превышать 100000",value = 100000)
+    @NotNull(message = "Число не должно быть пустым")
+    Integer kart;
+
 
     public Long getId() {
         return id;
@@ -75,6 +98,6 @@ public class Kolods {
         this.kart = kart;
     }
 
-    Integer kolvo, kart;
+
 
 }

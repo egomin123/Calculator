@@ -5,9 +5,11 @@ import Practika2.ModeliAndNews.Repository.NewsRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
 import javax.persistence.criteria.CriteriaBuilder;
+import javax.validation.Valid;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -30,35 +32,23 @@ public class NewsController {
     @GetMapping("/add")
     public String addView(Model model)
     {
-
+        model.addAttribute("news", new News());
         return "News/AddNews";
     }
-    @PostMapping("/add")
-    public String add(
-            @RequestParam("title") String title,
-            @RequestParam("author") String author,
-            @RequestParam("body_text") String body_text,
-            @RequestParam("views") Integer views,
-            @RequestParam("likes") Integer likes,
-            Model model)
-    {
-        News newsOne = new News(title, body_text, author, views, likes);
-        newsRepository.save(newsOne);
-        return "redirect:/News/";
-    }
+
 
 
 
 
     @GetMapping("/Search")
-    public String GetAdd(
-            @RequestParam("title") String title,
-            Model model)
-    {
-        List<News> newsList = newsRepository.findByTitle(title);
-        model.addAttribute("news", newsList);
-        return "News/Index";
-    }
+        public String GetAdd(
+                @RequestParam("title") String title,
+                Model model)
+        {
+            List<News> newsList = newsRepository.findByTitle(title);
+            model.addAttribute("news", newsList);
+            return "News/Index";
+        }
 
 
     @GetMapping("/Searchs")
@@ -94,7 +84,6 @@ public class NewsController {
         News news = newsRepository.findById(id).orElseThrow();
         newsRepository.delete(news);
 
-        //newsRepository.deleteById(id);
         return "redirect:/News/";
     }
 
@@ -112,47 +101,54 @@ public class NewsController {
         Optional<News> news = newsRepository.findById(id);
         ArrayList<News> newsArrayList =  new ArrayList<>();
         news.ifPresent(newsArrayList::add);
+        model.addAttribute("news", newsArrayList.get(0));
         model.addAttribute("News", newsArrayList);
         model.addAttribute("title", news.get().getTitle());
         model.addAttribute("author", news.get().getAuthor());
         model.addAttribute("body_text", news.get().getBody_text());
         model.addAttribute("views", news.get().getViews());
         model.addAttribute("likes", news.get().getLikes());
-
         return "News/Edit-News";
+
     }
+
+    @PostMapping("/add")
+    public String add(
+           @ModelAttribute("news") @Valid News newNews,
+            BindingResult bindingResult,
+            Model model)
+    {
+        if(bindingResult.hasErrors())
+            return "News/AddNews";
+
+        newsRepository.save(newNews);
+        return "redirect:/News/";
+    }
+
+
 
 
     @PostMapping("/edit/{id}")
     public String editNews(
             @PathVariable("id") Long id,
-            @RequestParam("title") String title,
-            @RequestParam("author") String author,
-            @RequestParam("body_text") String body_text,
-            @RequestParam("views") Integer views,
-            @RequestParam("likes") Integer likes,
-            Model model
-    )
+
+            @ModelAttribute("news") @Valid News newNews,
+            BindingResult bindingResult,
+            Model model)
     {
+
         if (!newsRepository.existsById(id) )
         {
             return "redirect:/News/";
         }
-        if ( title.isEmpty() || author.isEmpty() || body_text.isEmpty() || views.equals(null) || likes.equals(null))
-        {
-            return "redirect:/Kolods/";
-        }
-       News news = newsRepository.findById(id).orElseThrow();
 
-
-        news.setTitle(title);
-        news.setAuthor(author);
-        news.setBody_text(body_text);
-        news.setViews(views);
-        news.setLikes(likes);
-
-        newsRepository.save(news);
+        if(bindingResult.hasErrors())
+            return "News/Edit-News";
+        newNews.setId(id);
+      //  News news = newsRepository.findById(id).orElseThrow();
+        newsRepository.save(newNews);
         return "redirect:/News/";
     }
+
 
 }

@@ -8,20 +8,30 @@
 <body >
 <div th:insert="Fragments/Header :: defaultHeader"> </div>
 <div th:each="el : ${Menu}" ></div>
+<form th:object="${menu}" th:action="'/Menu/edit/' + ${id}", method="post" class="Zapis">
 
 
-<form th:action="'/Menu/edit/' + ${id}", method="post">
 
-  <p>Название блюда:</p>
-  <input type="text" th:value="${bludo}" id="bludo" name="bludo" placeholder="Название">
-  <p>Описание:</p>
-  <input type="text" th:value="${opisanie}" id="opisanie" name="opisanie" placeholder="Описание">
-  <p>Ингридиенты:</p>
-  <input type="text" th:value="${ingridient}" id="ingridient" name="ingridient" placeholder="Ингридиенты">
-  <p>Цена блюда:</p>
-  <input type="number" th:value="${cena}" id="cena" name="cena" placeholder="Цена">
-  <p>Количество ккал:</p>
-  <input type="number" th:value="${kkal}" id="kkal" name="kkal" placeholder="Ккал"> <br>
+  <p>Название блюда:
+  <input type="text" th:value="${bludo}" id="bludo" name="bludo" th:field="*{bludo}" placeholder="Название">
+  <div th:if="${#fields.hasErrors('bludo')}" th:errors="*{bludo}"> </div>
+  </p>
+  <p>Описание:
+  <input type="text" th:value="${opisanie}" id="opisanie" name="opisanie" th:field="*{opisanie}" placeholder="Описание">
+  <div th:if="${#fields.hasErrors('opisanie')}" th:errors="*{opisanie}" > </div>
+  </p>
+  <p>Ингридиенты:
+  <input type="text" th:value="${ingridient}" id="ingridient" name="ingridient" th:field="*{ingridient}" placeholder="Ингридиенты">
+  <div th:if="${#fields.hasErrors('ingridient')}" th:errors="*{ingridient}" > </div>
+  </p>
+  <p>Цена блюда:
+  <input type="number" th:value="${cena}" id="cena" name="cena" th:field="*{cena}" placeholder="Цена">
+  <div th:if="${#fields.hasErrors('cena')}" th:errors="*{cena}" > </div>
+  </p>
+  <p>Количество ккал:
+  <input type="number" th:value="${kkal}" id="kkal" name="kkal" th:field="*{kkal}" placeholder="Ккал">
+  <div th:if="${#fields.hasErrors('kkal')}" th:errors="*{kkal}" > </div>
+  </p> <br>
 
   <input type="submit" value="изменить блюдо" class="btn btn-seccsess"/> <br>
   <a href="/Menu/"> Назад</a>

@@ -7,18 +7,35 @@
 </head>
 <body >
 <div th:insert="Fragments/Header :: defaultHeader"> </div>
-<form action="/Kolods/add" method="post">
+<div style="display: inline-grid">
+  <form th:object="${kolods}" action="/Kolods/add" method="post" class="Zapis">
 
-  <p>Название:</p>
+
+
+
+
+
+  <p>Название:
   <input type="text" id="nazvanie" name="nazvanie" placeholder="Название">
-  <p>Описание:</p>
+    <div th:errors="*{nazvanie}" th:if="${#fields.hasErrors('nazvanie')}" > </div>
+  </p>
+  <p>Описание:
   <input type="text" id="opisanie" name="opisanie" placeholder="Описание">
-  <p>Фирма:</p>
+    <div th:errors="*{opisanie}" th:if="${#fields.hasErrors('opisanie')}"  > </div>
+  </p>
+  <p>Фирма:
   <input type="text" id="firma" name="firma" placeholder="Фирма">
-  <p>Количество колод на складе:</p>
+    <div th:errors="*{firma}" th:if="${#fields.hasErrors('firma')}"  > </div>
+  </p>
+  <p>Количество колод на складе:
   <input type="number" id="kolvo" name="kolvo" placeholder="Количество на складе">
-  <p>Количество карт в колоде:</p>
-  <input type="number" id="kart" name="kart" placeholder="Количество карт"> <br>
+    <div th:errors="*{kolvo}" th:if="${#fields.hasErrors('kolvo')}"  > </div>
+  </p>
+  <p>Количество карт в колоде:
+  <input type="number" id="kart" name="kart" placeholder="Количество карт">
+    <div th:errors="*{kart}" th:if="${#fields.hasErrors('kart')}"  > </div>
+  </p>
+</div>
 
   <input type="submit" value="Добавить колоду" class="btn btn-seccsess"/>
   <a href="/Kolods/"> Назад</a>

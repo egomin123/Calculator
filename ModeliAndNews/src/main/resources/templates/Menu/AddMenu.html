@@ -7,24 +7,37 @@
 </head>
 <body >
 <div th:insert="Fragments/Header :: defaultHeader"> </div>
-<form action="/Menu/add" method="post">
+<div style="display: inline-grid">
+<form th:object="${menu}" action="/Menu/add" method="post" class="Zapis">
 
-    <p>Название блюда:</p>
+    <p>Название блюда:
     <input type="text" id="bludo" name="bludo" placeholder="Название">
-    <p>Описание:</p>
+        <div th:errors="*{bludo}" th:if="${#fields.hasErrors('bludo')}" > </div>
+    </p>
+    <p>Описание:
     <input type="text" id="opisanie" name="opisanie" placeholder="Описание">
-    <p>Ингридиенты:</p>
+    <div th:errors="*{opisanie}" th:if="${#fields.hasErrors('opisanie')}"  > </div>
+    </p>
+    <p>Ингридиенты:
     <input type="text" id="ingridient" name="ingridient" placeholder="Ингридиенты">
-    <p>Цена блюда:</p>
+    <div th:errors="*{ingridient}" th:if="${#fields.hasErrors('ingridient')}"  > </div>
+    </p>
+    <p>Цена блюда:
     <input type="number" id="cena" name="cena" placeholder="Цена">
-    <p>Количество Ккал:</p>
-    <input type="number" id="kkal" name="kkal" placeholder="Ккал"> <br>
+    <div th:errors="*{cena}" th:if="${#fields.hasErrors('cena')}"  > </div>
+    </p>
+    <p>Количество Ккал:
+    <input type="number" id="kkal" name="kkal" placeholder="Ккал">
+    <div th:errors="*{kkal}" th:if="${#fields.hasErrors('kkal')}"  > </div>
+    </p>
+</div>
 
-    <input type="submit" value="Добавить блюдо в меню" class="btn btn-seccsess"/>
+    <input type="submit" value="Добавить блюдо в меню" class="btn btn-seccsess"/><br>
     <a href="/Menu/"> Назад</a>
 
 
-    </div>
+
+</div>
 </form>
 
 </body>

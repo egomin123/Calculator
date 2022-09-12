@@ -7,22 +7,32 @@
 </head>
 <body >
 <div th:insert="Fragments/Header :: defaultHeader"> </div>
-<form action="/News/add" method="post">
+<div style="display: inline-grid">
+<form th:object="${news}" action="/News/add" method="post" class="Zapis">
 
-    <p>Заголовок:</p>
-    <input type="text" id="title" name="title" placeholder="Заголовок">
-    <p>Текст новости:</p>
+    <p>Заголовок:
+    <input type="text" id="title" name="title"  placeholder="Заголовок">
+        <div th:errors="*{title}" th:if="${#fields.hasErrors('title')}" > </div>
+    </p>
+    <p>Текст новости:
     <input type="text" id="body_text" name="body_text" placeholder="Текст">
-    <p>Автор:</p>
+    <div th:errors="*{body_text}" th:if="${#fields.hasErrors('body_text')}"  > </div>
+    </p>
+    <p>Автор:
     <input type="text" id="author" name="author" placeholder="Автор">
-    <p>Количество просмотров:</p>
+    <div th:errors="*{author}" th:if="${#fields.hasErrors('author')}" > </div>
+    </p>
+    <p>Количество просмотров:
     <input type="number" id="views" name="views" placeholder="Просмотры">
-    <p>Количество лайков:</p>
-    <input type="number" id="likes" name="likes" placeholder="Лайки"> <br>
-
+    <div th:errors="*{views}" th:if="${#fields.hasErrors('views')}" > </div>
+    </p>
+    <p>Количество лайков:
+    <input type="number" id="likes" name="likes" placeholder="Лайки">
+    <div th:errors="*{likes}"  th:if="${#fields.hasErrors('likes')}" > </div>
+    </p>
+</div>
     <input type="submit" value="Добавить новость" class="btn btn-seccsess"/>
     <a href="/News/"> Назад</a>
-
 
     </div>
 </form>

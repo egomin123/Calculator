@@ -19,14 +19,14 @@
     <input type="submit" value="Найти блюдо ">
 </form>
 
-
-<div th:each="el : ${menu}">
+<div style="display: inline-grid">
+<div th:each="el : ${menu}" class="Zapis">
   <h2 th:text="${el.getbludo()}"> </h2>
   <h2 th:text="${el.getopisanie()}"> </h2>
   <p th:text="${el.getcena()}"> </p>
     <a th:href="'/Menu/' + ${el.id}">Информация о блюде</a>
 </div>
-
+</div>
 <a href="add/" class="btn btn-primary" >Добавить в меню</a> <br>
 <a href="/News/" class="btn btn-primary" >перейти к новостям</a>
 <a href="/Kolods/" class="btn btn-primary" >перейти к колодам</a>

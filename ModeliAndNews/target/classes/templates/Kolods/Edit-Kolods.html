@@ -8,17 +8,32 @@
 <body >
 <div th:insert="Fragments/Header :: defaultHeader"> </div>
 <div th:each="el : ${Kolods}" ></div>
-<form th:action="'/Kolods/edit/' + ${id}", method="post">
-  <p>Название:</p>
-  <input type="text" th:value="${nazvanie}" id="nazvanie" name="nazvanie" placeholder="Название">
-  <p>Описание:</p>
-  <input type="text" th:value="${opisanie}" id="opisanie" name="opisanie" placeholder="Описание">
-  <p>Фирма:</p>
+
+
+<form th:object="${kolods}" th:action="'/Kolods/edit/' + ${id}", method="post" class="Zapis">
+
+
+  <p>Название:
+  <input type="text" th:value="${nazvanie}" id="nazvanie" name="nazvanie" th:field="*{nazvanie}" placeholder="Название">
+  <div th:if="${#fields.hasErrors('nazvanie')}" th:errors="*{nazvanie}"> </div>
+  </p>
+  <p>Описание:
+  <input type="text" th:value="${opisanie}" id="opisanie" name="opisanie" th:field="*{opisanie}" placeholder="Описание">
+  <div th:if="${#fields.hasErrors('opisanie')}" th:errors="*{opisanie}" > </div>
+  </p>
+  <p>Фирма:
   <input type="text" th:value="${firma}" id="firma" name="firma" placeholder="Фирма">
-  <p>Количество колод на складе:</p>
+  <div th:if="${#fields.hasErrors('firma')}" th:errors="*{firma}" > </div>
+  </p>
+  <p>Количество колод на складе:
   <input type="number" th:value="${kolvo}" id="kolvo" name="kolvo" placeholder="Количество колод">
-  <p>Количество карт в колоде:</p>
-  <input type="number" th:value="${kart}"  id="kart" name="Количество карт" > <br>
+  <div th:if="${#fields.hasErrors('kolvo')}" th:errors="*{kolvo}" > </div>
+  </p>
+  <p>Количество карт в колоде:
+  <input type="number" th:value="${kart}"  id="kart" name="Количество карт" >
+  <div th:if="${#fields.hasErrors('kart')}" th:errors="*{kart}" > </div>
+  </p><br>
+
   <input type="submit" value="изменить колоду" class="btn btn-seccsess"/> <br>
   <a href="/Kolods/"> Назад</a>
   </div>
