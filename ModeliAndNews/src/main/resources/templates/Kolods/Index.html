@@ -19,9 +19,9 @@
 </form>
 <div style="display: inline-grid">
   <div th:each="el : ${kolods}" class="Zapis">
-  <h2 th:text="${el.getnazvanie()}"> </h2>
-  <h2 th:text="${el.getfirma()}"> </h2>
-  <p th:text="${el.getkolvo()}"> </p>
+    <h2>Название</h2><h2 th:text="${el.getnazvanie()}"> </h2>
+    <h2>Фирма</h2><h2 th:text="${el.getfirma()}"> </h2>
+    <h2>Количество</h2><p th:text="${el.getkolvo()}"> </p>
   <a th:href="'/Kolods/' + ${el.id}">Информация о колоде</a>
 </div>
 </div>
